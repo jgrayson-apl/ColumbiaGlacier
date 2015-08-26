@@ -1,0 +1,288 @@
+html, body {
+  padding     : 0;
+  margin      : 0;
+  height      : 100%;
+  width       : 100%;
+  min-width   : 1160px;
+  min-height  : 635px;
+  font-family : "Helvetica Nue", Helvetica, sans-serif;
+}
+
+:focus {
+  outline : none !important;
+}
+
+.dijitBorderContainer .dijitContentPane {
+  border           : none !important;
+  color            : #eee !important;
+  background-color : #666 !important;
+}
+
+#main-container {
+  height           : 100%;
+  width            : 100%;
+  color            : #eee !important;
+  background-color : #666 !important;
+}
+
+#main-top-pane {
+  height  : 60px;
+  padding : 5px;
+}
+
+#app-title-node {
+  color          : #fff;
+  text-shadow    : 2px 2px 2px #000;
+  font-size      : 21pt;
+  vertical-align : middle;
+}
+
+#top-left-pane {
+  width     : 20%;
+  min-width : 220px;
+}
+
+#top-center-pane {
+  overflow : hidden;
+}
+
+#top-right-pane {
+  width : 20%;
+}
+
+#main-left-pane {
+  width : 5px;
+}
+
+#map-pane {
+  margin-left      : 10px;
+  margin-right     : 10px;
+  padding          : 0;
+  color            : #444 !important;
+  background-color : #777 !important;
+  border           : solid 2px #555 !important;
+}
+
+/*#map-pane .esriScalebarLabel {
+  color       : #fff;
+  text-shadow : 1px 1px 0 #333;
+}
+
+#map-pane .esriScalebarLine {
+  border-color : #fff;
+}*/
+
+#profile-tools-node {
+  position : absolute;
+  right    : 10px;
+}
+
+.dijitToolbar {
+  padding        : 5px !important;
+  vertical-align : middle !important;
+  background     : #ddd !important;
+  border-radius  : 3px;
+}
+
+.dijitToolbar label {
+  color           : #555;
+  font-style      : italic;
+  text-decoration : underline;
+  margin-top      : 10px !important;
+}
+
+.dijitToolbar .dijitButtonNode {
+  border-color  : #999 !important;
+  border-radius : 3px !important;
+}
+
+.dijitToolbar .dijitButtonHover .dijitButtonNode,
+.dijitToolbar .dijitToggleButtonHover .dijitButtonNode {
+  background-color : #999 !important;
+  border-color     : #666 !important;
+}
+
+.dijitToolbar .dijitButtonHover .dijitButtonText,
+.dijitToolbar .dijitToggleButtonHover .dijitButtonText {
+  color : #fff !important;
+}
+
+.movable-label {
+  z-index          : 99;
+  padding          : 3px;
+  position         : relative;
+  top              : 0;
+  right            : 108px;
+  width            : 100px;
+  text-align       : center;
+  color            : #333;
+  background-color : #dadada;
+  border-bottom    : solid 1px #858585;
+  border-left      : solid 1px #858585;
+}
+
+#map-tools-node {
+  top   : 20px;
+  right : 20px;
+  width : 250px;
+}
+
+#main-right-pane {
+  width            : 400px;
+  margin           : 10px 10px 5px 0 !important;
+  border           : solid 1px #555 !important;
+  background-color : #777 !important;
+}
+
+#main-bottom-pane {
+  height        : 225px;
+  font-size     : smaller;
+  overflow      : hidden;
+}
+
+#profile-chart-node {
+  height           : 100%;
+  margin           : 0 auto 0 auto;
+  border           : solid 1px #555 !important;
+  background-color : #777 !important;
+}
+
+#profile-chart-legend-node {
+  z-index   : 99;
+  position  : absolute;
+  bottom    : 10px;
+  left      : 80px;
+  color     : #444;
+  font-size : medium;
+}
+
+.toggle-swipe-icon {
+  width            : 16px;
+  height           : 16px;
+  background-image : url(../images/EffectsSwipe16.png);
+}
+
+.profile-tool-icon {
+  width            : 16px;
+  height           : 16px;
+  background-image : url(../images/ProfileGraphCreate16.png);
+}
+
+.graph-tool-icon {
+  width            : 16px;
+  height           : 16px;
+  background-image : url(../images/Green_KeyFacts_16.png);
+}
+
+.clear-icon {
+  width            : 16px;
+  height           : 16px;
+  background-image : url(../images/GenericDelete16.png);
+}
+
+.glacier-item {
+  color         : #fff;
+  margin-bottom : 50px;
+}
+
+.equivalent-item {
+  color         : #fff;
+  margin-bottom : 20px;
+  padding       : 0 10px;
+}
+
+.equivalent-title {
+  color         : #fff;
+  font-size     : larger;
+  font-weight   : bolder;
+  border-bottom : solid 2px #666;
+}
+
+.equivalent-icon {
+  width          : 80px;
+  height         : 80px;
+  vertical-align : top;
+}
+
+/*  ICONS USE GREENS SIMILAR TO #94DFBD */
+.equivalent-icon img {
+  width  : 60px;
+  height : 60px;
+}
+
+.equivalent-count {
+  font-size : 2vw;
+}
+
+.equivalent-details {
+  font-size  : smaller;
+  font-style : italic;
+  color      : #ddd;
+}
+
+.equivalent-details.volume {
+  padding-right : 24px;
+}
+
+.equivalent-details.volume[gain="none"] {
+  padding-right : unset;
+}
+
+.equivalent-details.volume[gain="positive"] {
+  background : url(../images/GreenUpArrow24.png) no-repeat right;
+}
+
+.equivalent-details.volume[gain="negative"] {
+  background : url(../images/RedDownArrow24.png) no-repeat right;
+}
+
+/* ADJUST THE TOOLBAR AND TOOLS WHEN SCREEN WIDTH IS SMALL */
+@media only screen and (max-width : 1525px) {
+
+  #profile-tools-node {
+    display : block;
+    left    : 10px;
+    bottom  : 10px;
+  }
+
+  #layers-toolbar {
+    height : 65px;
+  }
+
+  #main-top-pane {
+    height : 95px;
+  }
+
+}
+
+/*================================================================*/
+
+.app-error .loading-message {
+  background  : url(../images/error.png) no-repeat top center;
+  padding-top : 60px;
+  width       : 100%;
+  position    : absolute;
+  z-index     : 2;
+  top         : 40%;
+  left        : 0;
+  text-align  : center;
+}
+
+.message-node {
+  position         : absolute;
+  top              : 30%;
+  z-index          : 99;
+  width            : 100%;
+  padding          : 40px;
+  text-align       : center;
+  font-size        : 2em;
+  color            : #fff;
+  text-shadow      : 1px 1px 0 #222;
+  background-color : rgba(170, 170, 170, 0.5);
+}
+
+.error-node {
+  color : darkred;
+}
+
+/*================================================================*/
