@@ -118,7 +118,7 @@ define([
 
       this.map = new Map("map-pane", {
         //basemap: "satellite",
-        extent: new Extent({"xmin":-16402665.572775858,"ymin":8649793.753135916,"xmax":-16346560.794014612,"ymax":8673527.450418431,"spatialReference":{"wkid":102100,"latestWkid":3857}}),
+        extent: new Extent({"xmin": -16402665.572775858, "ymin": 8649793.753135916, "xmax": -16346560.794014612, "ymax": 8673527.450418431, "spatialReference": {"wkid": 102100, "latestWkid": 3857}}),
         //center: [-147.0939363281225, 61.15569307841876],
         zoom: 12
       });
@@ -222,24 +222,25 @@ define([
     setLayerVisibility: function (mapLayer, checked) {
       //console.info(mapLayer, checked)
 
-      fx[checked ? "fadeIn" : "fadeOut"]({
+      if(this.layerFadeAnim) {
+        this.layerFadeAnim.stop();
+      }
+
+      this.layerFadeAnim = fx[checked ? "fadeIn" : "fadeOut"]({
         node: mapLayer._div,
         duration: 1500,
         beforeBegin: lang.hitch(this, function () {
-          array.forEach(this.layerSwipeDijits, lang.hitch(this, function (layerSwipeDijit) {
-            layerSwipeDijit.toggleLayerBtn.set("disabled", true);
-          }));
           if(checked) {
             mapLayer.setVisibility(checked);
           }
         }),
         onEnd: lang.hitch(this, function () {
-          mapLayer.setVisibility(checked);
-          array.forEach(this.layerSwipeDijits, lang.hitch(this, function (layerSwipeDijit) {
-            layerSwipeDijit.toggleLayerBtn.set("disabled", false);
-          }));
+          if(!checked) {
+            mapLayer.setVisibility(checked);
+          }
         })
-      }).play();
+      });
+      this.layerFadeAnim.play();
 
     },
 
