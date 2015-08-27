@@ -208,6 +208,9 @@ define([
           // INIT CLEAR BUTTON //
           this.initClearButton();
 
+          // INIT ABOUT DIALOG //
+          this.initAboutDialog();
+
           // CLEAR WELCOME MESSAGE //
           MainApp.displayMessage();
         }), MainApp.displayMessage);
@@ -218,6 +221,32 @@ define([
       var basemapLayer = new ArcGISImageServiceLayer(this.basemapLayerUrl);
       this.map.addLayers([basemapLayer]);
 
+    },
+
+    /**
+     *  INITIALIZE ABOUT DIALOG
+     */
+    initAboutDialog: function () {
+      on(dom.byId("about-node"), "click", lang.hitch(this, function (evt) {
+        var aboutDialog = registry.byId("about-dialog");
+        if(aboutDialog) {
+          aboutDialog.show();
+        }
+      }));
+    },
+
+    /**
+     *
+     */
+    getColors: function () {
+      return {
+        titleColor: domStyle.get("app-title-node", "color"),
+        //accentColor : domStyle.get("app-title-node", "color"),
+        primaryColor: domStyle.get("main-container", "color"),
+        secondaryColor: domStyle.get("layers-pane", "color"),
+        primaryFill: domStyle.get("main-container", "backgroundColor"),
+        secondaryFill: domStyle.get("layers-pane", "backgroundColor")
+      };
     },
 
     /**
@@ -363,7 +392,7 @@ define([
      * @param toolName
      * @param checked
      */
-    enableMapTool: function (/*String*/toolName, /*Boolean*/checked) {
+    enableMapTool: function (toolName, checked) {
 
       switch (toolName) {
         case "profile":
@@ -407,9 +436,9 @@ define([
     toggleProfilePane: function (display) {
 
       var profilePaneNode = registry.byId("main-bottom-pane").domNode;
-      if(!this.profilePaneBox) {
-        this.profilePaneBox = domGeom.getContentBox(profilePaneNode);
-      }
+      /*if(!this.profilePaneBox) {
+       this.profilePaneBox = domGeom.getContentBox(profilePaneNode);
+       }*/
 
       domClass.toggle(profilePaneNode, "hidden-bottom-pane", !display);
       registry.byId("main-container").layout();
@@ -470,7 +499,8 @@ define([
       this.drawToolbar.setLineSymbol(profileSymbol);
 
       var locationSymbol = lang.clone(this.drawToolbar.markerSymbol);
-      locationSymbol.setColor(new Color("#ccc"));
+      var titleColor = domStyle.get("app-title-node", "color");
+      locationSymbol.setColor(new Color(titleColor));
       locationSymbol.setSize(12.0);
       this.profileIndexLocationGraphic = new Graphic(null, locationSymbol);
       this.map.graphics.add(this.profileIndexLocationGraphic);
@@ -567,39 +597,44 @@ define([
      */
     initProfileChart: function () {
 
-      var fillColor = domStyle.get("main-container", "backgroundColor");
-      var fontColor = domStyle.get("main-container", "color");
+      var primaryFill = domStyle.get("main-container", "backgroundColor");
+      var primaryColor = domStyle.get("main-container", "color");
+      var secondaryFill = domStyle.get("map-pane", "backgroundColor");
+      var secondaryColor = domStyle.get("map-pane", "color");
+      var titleColor = domStyle.get("app-title-node", "color");
 
       var chartNode = dom.byId("profile-chart-node");
       this.profileChart = new Chart(chartNode);
       this.profileChart.setTheme(ChartTheme);
 
-      this.profileChart.fill = fillColor;
-      this.profileChart.theme.plotarea.fill = fillColor;
-      this.profileChart.theme.axis.stroke.color = fontColor;
+      this.profileChart.fill = primaryFill;
+      this.profileChart.theme.plotarea.fill = primaryFill;
+      this.profileChart.theme.axis.stroke.color = primaryColor;
 
       this.profileChart.addAxis("x", {
         title: "Distance (meters)",
-        titleFontColor: fontColor,
+        titleFontColor: primaryColor,
         titleOrientation: "away",
         natural: true,
         includeZero: true,
         fixUpper: "none",
         majorTicks: true,
         minorTicks: true,
-        majorTick: {color: fontColor},
-        minorTick: {color: fontColor},
-        fontColor: fontColor,
+        majorTick: {color: primaryColor},
+        minorTick: {color: primaryColor},
+        fontColor: primaryColor,
         font: "normal normal 9pt Tahoma"
       });
       this.profileChart.addAxis("y", {
         title: "Elevation (meters)",
-        titleFontColor: fontColor,
+        titleFontColor: primaryColor,
         vertical: true,
         fixUpper: "minor",
         includeZero: true,
+        majorTicks: true,
         minorTicks: false,
-        fontColor: fontColor,
+        majorTick: {color: primaryColor},
+        fontColor: primaryColor,
         font: "normal normal 9pt Tahoma"
       });
 
@@ -610,7 +645,7 @@ define([
         vMajorLines: false,
         vMinorLines: false,
         majorHLine: {
-          color: fontColor,
+          color: primaryColor,
           width: 0.5
         }
       });
@@ -631,10 +666,10 @@ define([
       var mouseIndicator = new MouseIndicator(this.profileChart, "default", {
         series: "2013",
         mouseOver: true,
+        fill: secondaryFill,
+        fontColor: secondaryColor,
         font: "normal normal normal 13pt Tahoma",
-        fontColor: fillColor,
-        fill: fontColor,
-        markerFill: "#ccc",
+        markerFill: titleColor,
         markerSymbol: "m-6,0 c0,-8 12,-8 12,0 m-12,0 c0,8 12,8 12,0",
         labelFunc: lang.hitch(this, function (dataPoint) {
           if(this.profileInfos) {
@@ -751,12 +786,7 @@ define([
      * @param display
      */
     toggleStatsPane: function (display) {
-
       var statsPaneNode = registry.byId("main-right-pane").domNode;
-      if(!this.statsPaneBox) {
-        this.statsPaneBox = domGeom.getContentBox(statsPaneNode);
-      }
-
       domClass.toggle(statsPaneNode, "hidden-side-pane", !display);
       registry.byId("main-container").layout();
     },

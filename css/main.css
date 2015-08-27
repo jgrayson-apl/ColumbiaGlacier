@@ -12,24 +12,28 @@ html, body {
 
 /* ============================================= */
 
-.primary-background {
-  background : #666 !important;
+.title-color {
+  color : #fff !important;
+}
+
+.accent-color {
+  color : #999 !important;
 }
 
 .primary-color {
   color : #dadada !important;
 }
 
-.secondary-background {
-  background : #dadada !important;
-}
-
 .secondary-color {
   color : #333 !important;
 }
 
-.title-color {
-  color : #fff !important;
+.primary-background {
+  background : #666 !important;
+}
+
+.secondary-background {
+  background : #dadada !important;
 }
 
 /* ============================================= */
@@ -50,12 +54,12 @@ html, body {
   left          : 60px;
   padding       : 15px;
   border-radius : 3px;
+  border        : solid 1px #333;
 
 }
 
 #app-title-node {
-  font-size      : 21pt;
-  vertical-align : middle;
+  font-size : 21pt;
 }
 
 #map-pane .esriScalebarLabel {
@@ -134,7 +138,52 @@ html, body {
 }
 
 #main-right-pane {
-  width : 400px;
+  width : 390px;
+}
+
+#about-node {
+  float           : right;
+  margin-right    : 10px;
+  padding         : 5px;
+  cursor          : pointer;
+  text-decoration : underline;
+}
+
+#about-dialog-content {
+  width : 900px;
+}
+
+.section {
+  margin : 5px;
+}
+
+.section-title {
+  font-size     : larger;
+  font-weight   : bolder;
+  border-bottom : solid 2px #666;
+}
+
+.section-content {
+  padding : 10px;
+}
+
+.section-subtitle {
+  text-decoration : underline;
+}
+
+.section-subcontent {
+  padding-left : 15px;
+  margin       : 5px;
+}
+
+.section-source,
+.section-source a {
+  color      : #666;
+  font-style : italic;
+}
+
+.section-source a:hover {
+  color : #222;
 }
 
 #main-bottom-pane {
@@ -208,7 +257,7 @@ html, body {
 }
 
 .equivalent-count {
-  font-size : 2vw;
+  font-size : 32pt;
 }
 
 .equivalent-details {
