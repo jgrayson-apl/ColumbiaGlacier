@@ -5,17 +5,11 @@ html, body {
   width       : 100%;
   /*min-width   : 1160px;
   min-height  : 635px;*/
-  font-family : "Helvetica Nue", Helvetica, sans-serif;
+  font-family : Helvetica, Tahoma, sans-serif;
 }
 
 :focus {
   outline : none !important;
-}
-
-.dijitBorderContainer .dijitContentPane {
-  border           : none !important;
-  color            : #eee !important;
-  background-color : #666 !important;
 }
 
 #main-container {
@@ -23,6 +17,12 @@ html, body {
   width            : 100%;
   color            : #eee !important;
   background-color : #666 !important;
+}
+
+#main-container .dijitContentPane {
+  margin  : 0 !important;
+  padding : 0 !important;
+  border  : none !important;
 }
 
 #main-top-pane {
@@ -55,11 +55,11 @@ html, body {
 }
 
 #map-pane {
-  margin           : 10px;
-  padding          : 0;
   color            : #444 !important;
+  /*margin           : 10px;
+  padding          : 0;
   background-color : #777 !important;
-  border           : solid 2px #555 !important;
+  border           : solid 2px #555 !important;*/
 }
 
 #map-pane .esriScalebarLabel {
@@ -156,10 +156,10 @@ html, body {
 }
 
 #main-right-pane {
-  width            : 400px;
-  margin           : 10px 10px 5px 0 !important;
+  width : 400px;
+  /*margin           : 10px 10px 5px 0 !important;
   border           : solid 1px #555 !important;
-  background-color : #777 !important;
+  background-color : #777 !important;*/
 }
 
 #main-bottom-pane {
@@ -169,10 +169,10 @@ html, body {
 }
 
 #profile-chart-node {
-  height           : 100%;
-  margin           : 0 auto 0 auto;
-  border           : solid 1px #555 !important;
-  background-color : #777 !important;
+  height : 100%;
+  margin : 0 auto 0 auto;
+  /*border           : solid 1px #555 !important;
+  background-color : #777 !important;*/
 }
 
 #profile-chart-legend-node {
@@ -180,7 +180,7 @@ html, body {
   position  : absolute;
   bottom    : 10px;
   left      : 80px;
-  color     : #444;
+  /*color     : #444;*/
   font-size : medium;
 }
 
@@ -211,19 +211,20 @@ html, body {
 .glacier-item {
   color         : #fff;
   margin-bottom : 50px;
+  padding-left  : 10px;
 }
 
 .equivalent-item {
   color         : #fff;
   margin-bottom : 20px;
-  padding       : 0 10px;
+  padding-left  : 10px;
 }
 
 .equivalent-title {
   color         : #fff;
   font-size     : larger;
   font-weight   : bolder;
-  border-bottom : solid 2px #666;
+  border-bottom : solid 2px #666 !important;
 }
 
 .equivalent-icon {

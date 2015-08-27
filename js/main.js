@@ -133,7 +133,7 @@ define([
       });
       this.map.on("load", lang.hitch(this, function () {
         //this.map.on("extent-change", lang.hitch(this, function (evt) {
-          //console.info(json.stringify(evt.extent.toJson()));
+        //console.info(json.stringify(evt.extent.toJson()));
         //}));
 
         // SCALEBAR //
@@ -665,26 +665,40 @@ define([
      */
     initProfileChart: function () {
 
+      var fillColor = "#666"; //"#dadada"
+      var fontColor = "#eee"; //"#666"
+
+
       var chartNode = dom.byId("profile-chart-node");
       this.profileChart = new Chart(chartNode);
       this.profileChart.setTheme(ChartTheme);
-      this.profileChart.fill = "#dadada";
-      this.profileChart.theme.plotarea.fill = "#dadada";
+
+      this.profileChart.fill = fillColor;
+      this.profileChart.theme.plotarea.fill = fillColor;
+      this.profileChart.theme.axis.stroke.color = fontColor;
+
       this.profileChart.addAxis("x", {
         title: "Distance (meters)",
+        titleFontColor: fontColor,
         titleOrientation: "away",
         natural: true,
         includeZero: true,
         fixUpper: "none",
+        majorTicks: true,
         minorTicks: true,
+        majorTick: {color: fontColor},
+        minorTick: {color: fontColor},
+        fontColor: fontColor,
         font: "normal normal 9pt Tahoma"
       });
       this.profileChart.addAxis("y", {
         title: "Elevation (meters)",
+        titleFontColor: fontColor,
         vertical: true,
         fixUpper: "minor",
         includeZero: true,
         minorTicks: false,
+        fontColor: fontColor,
         font: "normal normal 9pt Tahoma"
       });
 
@@ -695,7 +709,7 @@ define([
         vMajorLines: false,
         vMinorLines: false,
         majorHLine: {
-          color: "#666",
+          color: fontColor,
           width: 0.5
         }
       });
@@ -706,10 +720,10 @@ define([
       });
 
       this.profileChart.addSeries("2009", [], {
-        stroke: {color: Color.named.green, width: 2.5}
+        stroke: {color: Color.named.lightgreen, width: 2.5}
       });
       this.profileChart.addSeries("2013", [], {
-        stroke: {color: Color.named.red, width: 2.5}
+        stroke: {color: Color.named.salmon, width: 2.5}
       });
 
       // MOUSE INDICATOR //
@@ -717,10 +731,10 @@ define([
         series: "2013",
         mouseOver: true,
         font: "normal normal normal 13pt Tahoma",
+        fill: "#dadada",
+        lineStroke: {color: "#eee", width: 2.0},
+        markerFill: "#ccc",
         markerSymbol: "m-6,0 c0,-8 12,-8 12,0 m-12,0 c0,8 12,8 12,0",
-        fillFunc: function () {
-          return Color.named.white;
-        },
         labelFunc: lang.hitch(this, function (dataPoint) {
           if(this.profileInfos) {
             var item2009 = this.profileInfos["2009"].get(dataPoint.x);
@@ -798,7 +812,7 @@ define([
           y: (this.profileChart.dim.height * 0.5),
           align: "middle",
           text: "Columbia Glacier Elevations Profile"
-        }).setFont({family: "Tahoma", style: "normal", size: "27pt"}).setFill("#ccc");
+        }).setFont({family: "Helvetica", style: "normal", size: "21pt"}).setFill("#999");
       }
     },
 
