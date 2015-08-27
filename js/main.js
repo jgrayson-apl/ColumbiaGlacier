@@ -20,12 +20,15 @@ define([
   "dojo/_base/lang",
   "dojo/_base/array",
   "dojo/_base/fx",
+  "dojo/fx",
+  "dojo/fx/Toggler",
   "dojo/_base/Color",
+  "dojo/colors",
   "dojo/json",
   "dojo/number",
-  "dojo/colors",
   "dojo/dom",
   "dojo/dom-class",
+  "dojo/dom-style",
   "dojo/dom-geometry",
   "dojo/query",
   "dojo/on",
@@ -60,7 +63,7 @@ define([
   "esri/toolbars/draw",
   "esri/tasks/Geoprocessor",
   "esri/tasks/FeatureSet"
-], function (declare, lang, array, fx, Color, json, number, colors, dom, domClass, domGeom, query, on, aspect, Deferred, all, put,
+], function (declare, lang, array, fx, coreFx, Toggler, Color, colors, json, number, dom, domClass, domStyle, domGeom, query, on, aspect, Deferred, all, put,
              registry, ToggleButton, Chart, Default, Grid, ChartTheme, Lines, MouseIndicator, ChartLegend, StoreSeries, Memory,
              /* arcgisUtils,*/ Map, Point, Extent, Graphic, GraphicsLayer, ArcGISTiledMapServiceLayer,
              ArcGISImageServiceLayer, ImageServiceParameters, RasterFunction, MosaicRule,
@@ -101,7 +104,10 @@ define([
     /**
      * DEFAULT PROFILE INFOS
      */
-    defaultProfileInfos: {"2009": new Memory({idProperty: "distance", data: []}), "2013": new Memory({idProperty: "distance", data: []})},
+    defaultProfileInfos: {
+      "2009": new Memory({idProperty: "distance", data: []}),
+      "2013": new Memory({idProperty: "distance", data: []})
+    },
 
     /**
      * CONSTRUCTOR
@@ -116,6 +122,9 @@ define([
      */
     startup: function () {
 
+      //this.toggleProfilePane(false);
+      //this.toggleStatsPane(false);
+
       this.map = new Map("map-pane", {
         //basemap: "satellite",
         extent: new Extent({"xmin": -16402665.572775858, "ymin": 8649793.753135916, "xmax": -16346560.794014612, "ymax": 8673527.450418431, "spatialReference": {"wkid": 102100, "latestWkid": 3857}}),
@@ -124,11 +133,11 @@ define([
       });
       this.map.on("load", lang.hitch(this, function () {
         //this.map.on("extent-change", lang.hitch(this, function (evt) {
-        //  console.info(json.stringify(evt.extent.toJson()));
+          //console.info(json.stringify(evt.extent.toJson()));
         //}));
 
         // SCALEBAR //
-        var scalebar = new Scalebar({
+        this.map.scalebar = new Scalebar({
           map: this.map,
           scalebarUnit: "dual"
         });
@@ -456,6 +465,7 @@ define([
 
       switch (toolName) {
         case "profile":
+          //this.toggleProfilePane(checked);
           if(checked) {
             registry.byId("get-stats-btn").set("checked", false);
             this.profileFeature.setGeometry(null);
@@ -471,6 +481,7 @@ define([
           break;
 
         case "stats":
+          //this.toggleStatsPane(checked);
           if(checked) {
             registry.byId("get-profile-btn").set("checked", false);
             this.statsFeature.setGeometry(null);
@@ -484,6 +495,50 @@ define([
           }
           break;
       }
+    },
+
+    /**
+     * TOGGLE PROFILES PANE
+     *
+     * @param display
+     */
+    toggleProfilePane: function (display) {
+
+      var profilePaneNode = registry.byId("main-bottom-pane").domNode;
+      if(!this.profilePaneBox) {
+        this.profilePaneBox = domGeom.getContentBox(profilePaneNode);
+      }
+
+      domClass.toggle(profilePaneNode, "hidden-bottom-pane", !display);
+      registry.byId("main-container").layout();
+
+      /* if(display) {
+
+       domStyle.set(profilePaneNode, "display", "block");
+       fx.animateProperty({
+       node: profilePaneNode,
+       properties: {
+       height: {start: 0, end: this.profilePaneBox.h}
+       },
+       onEnd: lang.hitch(this, function () {
+       registry.byId("main-container").layout();
+       })
+       }).play();
+
+       } else {
+
+       fx.animateProperty({
+       node: profilePaneNode,
+       properties: {
+       height: {start: this.profilePaneBox.h, end: 0}
+       },
+       onEnd: lang.hitch(this, function () {
+       domStyle.set(profilePaneNode, "display", "none");
+       registry.byId("main-container").layout();
+       })
+       }).play();
+
+       }*/
     },
 
     /**
@@ -773,6 +828,22 @@ define([
       }));
 
       this.getDefaultStats();
+    },
+
+    /**
+     * TOGGLE STATISTICS PANE
+     *
+     * @param display
+     */
+    toggleStatsPane: function (display) {
+
+      var statsPaneNode = registry.byId("main-right-pane").domNode;
+      if(!this.statsPaneBox) {
+        this.statsPaneBox = domGeom.getContentBox(statsPaneNode);
+      }
+
+      domClass.toggle(statsPaneNode, "hidden-side-pane", !display);
+      registry.byId("main-container").layout();
     },
 
     /**

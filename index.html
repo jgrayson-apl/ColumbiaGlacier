@@ -21,14 +21,14 @@
             name: "application",
             location: package_path + '/js'
           }/*,
-          {
-            name: "config",
-            location: package_path + '/config'
-          },
-          {
-            name: "arcgis_templates",
-            location: package_path + '/..'
-          }*/
+           {
+           name: "config",
+           location: package_path + '/config'
+           },
+           {
+           name: "arcgis_templates",
+           location: package_path + '/..'
+           }*/
         ]
       };
     </script>
@@ -50,11 +50,11 @@
         //var myTemplate = new Template(templateConfig);
         //myTemplate.startup().then(function (config) {
 
-          Main.displayMessage("Welcome");
-          ready(lang.hitch(this, function () {
-            var myApp = new Main(/*config*/);
-            myApp.startup();
-          }));
+        Main.displayMessage("Welcome");
+        ready(lang.hitch(this, function () {
+          var myApp = new Main(/*config*/);
+          myApp.startup();
+        }));
 
         //}, Main.displayMessage);
 
@@ -62,28 +62,38 @@
     </script>
   </head>
   <body class="claro">
-    <div id="main-container" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'sidebar',gutters:false">
-      <div id="main-top-pane" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region:'top'">
-        <div id="top-left-pane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'">
+    <div id="main-container" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false,design:'sidebar'">
+      <!--<div id="main-top-pane" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region:'top'">-->
+        <!--<div id="top-left-pane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'">
           <div id="app-title-node">Columbia Glacier</div>
-        </div>
-        <div id="top-center-pane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
+        </div>-->
+        <!--<div id="top-center-pane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
           <div id="layers-toolbar" data-dojo-type="dijit/Toolbar">
-            <label>Elevation Layers:</label>
-            <span id="layer-buttons-node"></span>
-            <span data-dojo-type="dijit/ToolbarSeparator"></span>
-            <div id="toggle-swipe-btn" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="checked:false,label:'Swipe',title:'Toggle the ability to swipe the layers',iconClass:'toggle-swipe-icon'"></div>
+            &lt;!&ndash;<label>Elevation Layers:</label>&ndash;&gt;
+
             <span id="profile-tools-node">
-              <label>Map Tools:</label>
-              <div id="get-profile-btn" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="label:'Get Profiles',title:'Draw a line on the map to generate elevation profiles',iconClass:'profile-tool-icon'"></div>
-              <div id="get-stats-btn" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="label:'Get Stats',title:'Draw a circle on the map to get elevation change statistics',iconClass:'graph-tool-icon'"></div>
-              <span data-dojo-type="dijit/ToolbarSeparator"></span>
-              <div id="clear-btn" data-dojo-type="dijit/form/Button" data-dojo-props="label:'Clear Results',title:'Remove profile and stats results from the display',iconClass:'clear-icon'"></div>
+              &lt;!&ndash;<label>Map Tools:</label>&ndash;&gt;
+
             </span>
           </div>
+        </div>-->
+      <!--</div>-->
+      <div id="map-pane" dir="ltr" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
+        <div id="title-pane" class="map-overlay">
+          <div id="app-title-node">Columbia Glacier</div>
+        </div>
+        <div id="layers-pane" class="map-overlay" data-dojo-type="dijit/Toolbar">
+          <span id="layer-buttons-node"></span>
+          <span data-dojo-type="dijit/ToolbarSeparator"></span>
+          <div id="toggle-swipe-btn" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="checked:false,label:'Swipe',title:'Toggle the ability to swipe the layers',iconClass:'toggle-swipe-icon'"></div>
+        </div>
+        <div id="tools-pane" class="map-overlay" data-dojo-type="dijit/Toolbar">
+          <div id="get-profile-btn" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="label:'Get Profiles',title:'Draw a line on the map to generate elevation profiles',iconClass:'profile-tool-icon'"></div>
+          <div id="get-stats-btn" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="label:'Get Stats',title:'Draw a circle on the map to get elevation change statistics',iconClass:'graph-tool-icon'"></div>
+          <span data-dojo-type="dijit/ToolbarSeparator"></span>
+          <div id="clear-btn" data-dojo-type="dijit/form/Button" data-dojo-props="label:'Clear Results',title:'Remove profile and stats results from the display',iconClass:'clear-icon'"></div>
         </div>
       </div>
-      <div id="map-pane" dir="ltr" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
       <div id="main-right-pane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right'">
         <div id="equivalent-node"></div>
       </div>

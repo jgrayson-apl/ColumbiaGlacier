@@ -3,8 +3,8 @@ html, body {
   margin      : 0;
   height      : 100%;
   width       : 100%;
-  min-width   : 1160px;
-  min-height  : 635px;
+  /*min-width   : 1160px;
+  min-height  : 635px;*/
   font-family : "Helvetica Nue", Helvetica, sans-serif;
 }
 
@@ -55,22 +55,50 @@ html, body {
 }
 
 #map-pane {
-  margin-left      : 10px;
-  margin-right     : 10px;
+  margin           : 10px;
   padding          : 0;
   color            : #444 !important;
   background-color : #777 !important;
   border           : solid 2px #555 !important;
 }
 
-/*#map-pane .esriScalebarLabel {
+#map-pane .esriScalebarLabel {
   color       : #fff;
   text-shadow : 1px 1px 0 #333;
 }
 
 #map-pane .esriScalebarLine {
   border-color : #fff;
+}
+
+.map-overlay {
+  z-index  : 99;
+  position : absolute;
+}
+
+/*.esriSimpleSliderTL {
+  top  : 20px;
+  left : 20px;
 }*/
+
+#title-pane {
+  top           : 20px;
+  left          : 60px;
+  padding       : 15px;
+  background    : #666;
+  border-radius : 3px;
+
+}
+
+#layers-pane {
+  top  : 90px;
+  left : 60px;
+}
+
+#tools-pane {
+  top   : 10px;
+  right : 10px;
+}
 
 #profile-tools-node {
   position : absolute;
@@ -135,9 +163,9 @@ html, body {
 }
 
 #main-bottom-pane {
-  height        : 225px;
-  font-size     : smaller;
-  overflow      : hidden;
+  height    : 225px;
+  font-size : smaller;
+  overflow  : hidden;
 }
 
 #profile-chart-node {
@@ -237,6 +265,7 @@ html, body {
 }
 
 /* ADJUST THE TOOLBAR AND TOOLS WHEN SCREEN WIDTH IS SMALL */
+/*
 @media only screen and (max-width : 1525px) {
 
   #profile-tools-node {
@@ -254,6 +283,18 @@ html, body {
   }
 
 }
+
+.hidden-bottom-pane {
+  opacity : 0;
+  height  : 0;
+  display : none;
+}
+
+.hidden-side-pane {
+  opacity : 0;
+  width   : 0;
+  display : none;
+}*/
 
 /*================================================================*/
 
