@@ -222,11 +222,11 @@ define([
     setLayerVisibility: function (mapLayer, checked) {
       //console.info(mapLayer, checked)
 
-      if(this.layerFadeAnim) {
-        this.layerFadeAnim.stop();
+      if(mapLayer.layerFadeAnim) {
+        mapLayer.layerFadeAnim.stop();
       }
 
-      this.layerFadeAnim = fx[checked ? "fadeIn" : "fadeOut"]({
+      mapLayer.layerFadeAnim = fx[checked ? "fadeIn" : "fadeOut"]({
         node: mapLayer._div,
         duration: 1500,
         beforeBegin: lang.hitch(this, function () {
@@ -240,7 +240,7 @@ define([
           }
         })
       });
-      this.layerFadeAnim.play();
+      mapLayer.layerFadeAnim.play();
 
     },
 
