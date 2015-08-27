@@ -3,8 +3,6 @@ html, body {
   margin      : 0;
   height      : 100%;
   width       : 100%;
-  /*min-width   : 1160px;
-  min-height  : 635px;*/
   font-family : Helvetica, Tahoma, sans-serif;
 }
 
@@ -12,11 +10,33 @@ html, body {
   outline : none !important;
 }
 
+/* ============================================= */
+
+.primary-background {
+  background : #666 !important;
+}
+
+.primary-color {
+  color : #dadada !important;
+}
+
+.secondary-background {
+  background : #dadada !important;
+}
+
+.secondary-color {
+  color : #333 !important;
+}
+
+.title-color {
+  color : #fff !important;
+}
+
+/* ============================================= */
+
 #main-container {
-  height           : 100%;
-  width            : 100%;
-  color            : #eee !important;
-  background-color : #666 !important;
+  height : 100%;
+  width  : 100%;
 }
 
 #main-container .dijitContentPane {
@@ -25,46 +45,21 @@ html, body {
   border  : none !important;
 }
 
-#main-top-pane {
-  height  : 60px;
-  padding : 5px;
+#title-pane {
+  top           : 20px;
+  left          : 60px;
+  padding       : 15px;
+  border-radius : 3px;
+
 }
 
 #app-title-node {
-  color          : #fff;
-  text-shadow    : 2px 2px 2px #000;
   font-size      : 21pt;
   vertical-align : middle;
 }
 
-#top-left-pane {
-  width     : 20%;
-  min-width : 220px;
-}
-
-#top-center-pane {
-  overflow : hidden;
-}
-
-#top-right-pane {
-  width : 20%;
-}
-
-#main-left-pane {
-  width : 5px;
-}
-
-#map-pane {
-  color            : #444 !important;
-  /*margin           : 10px;
-  padding          : 0;
-  background-color : #777 !important;
-  border           : solid 2px #555 !important;*/
-}
-
 #map-pane .esriScalebarLabel {
-  color       : #fff;
-  text-shadow : 1px 1px 0 #333;
+  color : #fff;
 }
 
 #map-pane .esriScalebarLine {
@@ -80,15 +75,6 @@ html, body {
   top  : 20px;
   left : 20px;
 }*/
-
-#title-pane {
-  top           : 20px;
-  left          : 60px;
-  padding       : 15px;
-  background    : #666;
-  border-radius : 3px;
-
-}
 
 #layers-pane {
   top  : 90px;
@@ -108,15 +94,7 @@ html, body {
 .dijitToolbar {
   padding        : 5px !important;
   vertical-align : middle !important;
-  background     : #ddd !important;
   border-radius  : 3px;
-}
-
-.dijitToolbar label {
-  color           : #555;
-  font-style      : italic;
-  text-decoration : underline;
-  margin-top      : 10px !important;
 }
 
 .dijitToolbar .dijitButtonNode {
@@ -157,9 +135,6 @@ html, body {
 
 #main-right-pane {
   width : 400px;
-  /*margin           : 10px 10px 5px 0 !important;
-  border           : solid 1px #555 !important;
-  background-color : #777 !important;*/
 }
 
 #main-bottom-pane {
@@ -171,8 +146,6 @@ html, body {
 #profile-chart-node {
   height : 100%;
   margin : 0 auto 0 auto;
-  /*border           : solid 1px #555 !important;
-  background-color : #777 !important;*/
 }
 
 #profile-chart-legend-node {
@@ -180,7 +153,6 @@ html, body {
   position  : absolute;
   bottom    : 10px;
   left      : 80px;
-  /*color     : #444;*/
   font-size : medium;
 }
 
@@ -209,22 +181,18 @@ html, body {
 }
 
 .glacier-item {
-  color         : #fff;
   margin-bottom : 50px;
   padding-left  : 10px;
 }
 
 .equivalent-item {
-  color         : #fff;
   margin-bottom : 20px;
   padding-left  : 10px;
 }
 
 .equivalent-title {
-  color         : #fff;
-  font-size     : larger;
-  font-weight   : bolder;
-  border-bottom : solid 2px #666 !important;
+  font-size   : larger;
+  font-weight : bolder;
 }
 
 .equivalent-icon {
@@ -233,7 +201,7 @@ html, body {
   vertical-align : top;
 }
 
-/*  ICONS USE GREENS SIMILAR TO #94DFBD */
+/* ICONS USE GREENS SIMILAR TO #94DFBD */
 .equivalent-icon img {
   width  : 60px;
   height : 60px;
@@ -246,7 +214,6 @@ html, body {
 .equivalent-details {
   font-size  : smaller;
   font-style : italic;
-  color      : #ddd;
 }
 
 .equivalent-details.volume {
@@ -264,38 +231,6 @@ html, body {
 .equivalent-details.volume[gain="negative"] {
   background : url(../images/RedDownArrow24.png) no-repeat right;
 }
-
-/* ADJUST THE TOOLBAR AND TOOLS WHEN SCREEN WIDTH IS SMALL */
-/*
-@media only screen and (max-width : 1525px) {
-
-  #profile-tools-node {
-    display : block;
-    left    : 10px;
-    bottom  : 10px;
-  }
-
-  #layers-toolbar {
-    height : 65px;
-  }
-
-  #main-top-pane {
-    height : 95px;
-  }
-
-}
-
-.hidden-bottom-pane {
-  opacity : 0;
-  height  : 0;
-  display : none;
-}
-
-.hidden-side-pane {
-  opacity : 0;
-  width   : 0;
-  display : none;
-}*/
 
 /*================================================================*/
 

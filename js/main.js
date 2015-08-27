@@ -47,7 +47,6 @@ define([
   "dojox/charting/widget/Legend",
   "dojox/charting/StoreSeries",
   "dojo/store/Memory",
-  //"esri/arcgis/utils",
   "esri/map",
   "esri/geometry/Point",
   "esri/geometry/Extent",
@@ -65,7 +64,7 @@ define([
   "esri/tasks/FeatureSet"
 ], function (declare, lang, array, fx, coreFx, Toggler, Color, colors, json, number, dom, domClass, domStyle, domGeom, query, on, aspect, Deferred, all, put,
              registry, ToggleButton, Chart, Default, Grid, ChartTheme, Lines, MouseIndicator, ChartLegend, StoreSeries, Memory,
-             /* arcgisUtils,*/ Map, Point, Extent, Graphic, GraphicsLayer, ArcGISTiledMapServiceLayer,
+             Map, Point, Extent, Graphic, GraphicsLayer, ArcGISTiledMapServiceLayer,
              ArcGISImageServiceLayer, ImageServiceParameters, RasterFunction, MosaicRule,
              LayerSwipe, Scalebar, DrawToolbar, Geoprocessor, FeatureSet) {
 
@@ -102,19 +101,19 @@ define([
     },
 
     /**
-     * DEFAULT PROFILE INFOS
-     */
-    defaultProfileInfos: {
-      "2009": new Memory({idProperty: "distance", data: []}),
-      "2013": new Memory({idProperty: "distance", data: []})
-    },
-
-    /**
      * CONSTRUCTOR
      *
      */
-    constructor: function (/*config*/) {
-      //declare.safeMixin(this, config);
+    constructor: function () {
+
+      /**
+       * DEFAULT PROFILE INFOS
+       */
+      this.defaultProfileInfos = {
+        "2009": new Memory({idProperty: "distance", data: []}),
+        "2013": new Memory({idProperty: "distance", data: []})
+      };
+
     },
 
     /**
@@ -308,103 +307,6 @@ define([
 
       return defer.promise;
     },
-
-    /**
-     * CREATE A MAP BASED ON AN WEBMAP ITEMINFO OR ID
-     *
-     * @param itemInfo
-     * @private
-     */
-    /*
-     _createWebMap: function (itemInfo) {
-     arcgisUtils.createMap(itemInfo, "map-pane", {
-     mapOptions: {},
-     usePopupManager: true,
-     editable: this.editable,
-     bingMapsKey: this.bingKey
-     }).then(lang.hitch(this, function (response) {
-
-     // MAP //
-     this.map = response.map;
-     this.webmap = response.itemInfo.itemData;
-
-     this.map.on("extent-change", lang.hitch(this, function (evt) {
-     console.info(lang.replace("center:[{0},{1}],level:{2}", [evt.extent.getCenter().getLongitude(), evt.extent.getCenter().getLatitude(), evt.lod.level]));
-     }));
-
-     // SCALEBAR //
-     var scalebar = new Scalebar({
-     map: this.map,
-     scalebarUnit: "dual"
-     });
-
-     // LAYERS NODE //
-     var layersNode = dom.byId("layer-buttons-node");
-     var layerCount = this.webmap.operationalLayers.length;
-
-     // CREATE LAYER SWIPE AND VISIBILITY CONTROLS FOR EACH OPERATIONAL LAYER //
-     this.layerSwipeDijits = array.map(this.webmap.operationalLayers.reverse(), lang.hitch(this, function (operationalLayer, layerIndex) {
-     var mapLayer = operationalLayer.layerObject;
-
-     // LAYER SWIPE //
-     var swipeWidget = new LayerSwipe({
-     type: "vertical",
-     map: this.map,
-     left: (this.map.width * ((layerIndex + 1) / (layerCount + 1))),
-     visible: operationalLayer.visibility,
-     enabled: false,
-     layers: [mapLayer]
-     }, put(this.map.root, "-div"));
-     swipeWidget.startup();
-
-     // SWIPE LABEL //
-     var handleNode = query(".handle", swipeWidget._moveableNode)[0];
-     put(handleNode, "+div.movable-label", operationalLayer.title);
-
-     // LAYER VISIBILITY TOGGLE BUTTON //
-     var toggleLayerBtn = new ToggleButton({
-     label: operationalLayer.title,
-     checked: operationalLayer.visibility,
-     iconClass: "dijitCheckBoxIcon"
-     }, put(layersNode, "div"));
-     toggleLayerBtn.startup();
-     // LAYER VISIBILITY TOGGLE EVENT //
-     toggleLayerBtn.on("change", lang.hitch(this, function (checked) {
-     mapLayer.setVisibility(checked);
-     if(checked && registry.byId("toggle-swipe-btn").get("checked")) {
-     swipeWidget.enable();
-     } else {
-     swipeWidget.disable();
-     }
-     }));
-
-     // ASSOCIATE THE VISIBILITY AND SWIPE TOOLS //
-     swipeWidget.toggleLayerBtn = toggleLayerBtn;
-
-     return swipeWidget;
-     }));
-
-     // INIT SWIPE BUTTON //
-     this.initSwipeButton();
-
-     // DRAW TOOLBAR //
-     this.drawToolbar = new DrawToolbar(this.map, {});
-     this.drawToolbar.on("draw-end", lang.hitch(this, this.onDrawEnd));
-
-     // INIT PROFILE TOOL //
-     this.initProfileTool();
-
-     // INIT STATS TOOL //
-     this.initStatsTool();
-
-     // INIT CLEAR BUTTON //
-     this.initClearButton();
-
-     // CLEAR WELCOME MESSAGE //
-     MainApp.displayMessage();
-     }), MainApp.displayMessage);
-     },
-     */
 
     /**
      *  INIT SWIPE BUTTON
@@ -665,9 +567,8 @@ define([
      */
     initProfileChart: function () {
 
-      var fillColor = "#666"; //"#dadada"
-      var fontColor = "#eee"; //"#666"
-
+      var fillColor = domStyle.get("main-container", "backgroundColor");
+      var fontColor = domStyle.get("main-container", "color");
 
       var chartNode = dom.byId("profile-chart-node");
       this.profileChart = new Chart(chartNode);
@@ -731,8 +632,8 @@ define([
         series: "2013",
         mouseOver: true,
         font: "normal normal normal 13pt Tahoma",
-        fill: "#dadada",
-        lineStroke: {color: "#eee", width: 2.0},
+        fontColor: fillColor,
+        fill: fontColor,
         markerFill: "#ccc",
         markerSymbol: "m-6,0 c0,-8 12,-8 12,0 m-12,0 c0,8 12,8 12,0",
         labelFunc: lang.hitch(this, function (dataPoint) {
@@ -931,12 +832,12 @@ define([
     _displayGlacierDetails: function (parentNode, details) {
 
       var glacierTable = put(parentNode, "table.glacier-item", {border: 0, width: "100%"});
-      put(glacierTable, "tr td.equivalent-title", {colSpan: "2", align: "left", innerHTML: "Glacier"});
+      put(glacierTable, "tr td.equivalent-title.title-color", {colSpan: "2", align: "left", innerHTML: "Glacier"});
       var iconNode = put(glacierTable, "tr td.equivalent-icon", {rowSpan: "5", align: "center"});
       put(iconNode, "img", {src: this.equivalentIcons["glacier"]});
-      put(glacierTable, "tr td.equivalent-count", {align: "right", innerHTML: this._formatNumber(details.area)});
+      put(glacierTable, "tr td.equivalent-count.title-color", {align: "right", innerHTML: this._formatNumber(details.area)});
       put(glacierTable, "tr td.equivalent-details", {align: "right", innerHTML: details.areaunits});
-      put(glacierTable, "tr td.equivalent-count", {align: "right", innerHTML: this._formatNumber(details.volume)});
+      put(glacierTable, "tr td.equivalent-count.title-color", {align: "right", innerHTML: this._formatNumber(details.volume)});
       var gain = (details.volume > 0) ? "positive" : ((details.volume < 0) ? "negative" : "none");
       put(glacierTable, lang.replace('tr td.equivalent-details.volume[gain="{0}"]', [gain]), {align: "right", innerHTML: details.volumeunits});
 
@@ -952,11 +853,11 @@ define([
     _displayEquivalentDetails: function (parentNode, details) {
 
       var equivalentTable = put(parentNode, "table.equivalent-item", {border: 0, width: "100%"});
-      put(equivalentTable, "tr td.equivalent-title", {colSpan: "2", align: "left", innerHTML: details.name});
+      put(equivalentTable, "tr td.equivalent-title.title-color", {colSpan: "2", align: "left", innerHTML: details.name});
       var middleRow = put(equivalentTable, "tr");
       var iconNode = put(middleRow, "td.equivalent-icon", {rowSpan: "2", align: "center", valign: "top"});
       put(iconNode, "img", {src: this.equivalentIcons[details.type]});
-      put(middleRow, "td.equivalent-count", {align: "right", innerHTML: this._formatNumber(details.count)});
+      put(middleRow, "td.equivalent-count.title-color", {align: "right", innerHTML: this._formatNumber(details.count)});
       put(equivalentTable, "tr td.equivalent-details", {colSpan: "2", align: "right", innerHTML: details.details});
 
     },
