@@ -10,6 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="stylesheet" href="//js.arcgis.com/3.14/dijit/themes/claro/claro.css">
     <link rel="stylesheet" href="//js.arcgis.com/3.14/esri/css/esri.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/main.css">
     <script type="text/javascript">
       var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
@@ -66,7 +67,7 @@
         </div>
       </div>
       <div id="main-right-pane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right'">
-        <div id="about-node" class="title-color">About</div>
+        <div id="about-node" class="title-color" title="Learn more about the data and calculations...">about</div>
         <div id="equivalent-node"></div>
       </div>
       <div id="main-bottom-pane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom'">
@@ -84,13 +85,14 @@
             <div class="section-subtitle">
               Polar Geospatial Center
             </div>
-
             <div class="section-subcontent">
               <div class="section-subtitle">Stereo-Photogrammetric Digital Elevation/Surface Models</div>
               <div class="section-subcontent">
                 The Digital Elevation Models (DEMs) provided here are gridded surface elevation data constructed from overlapping pairs high-resolution (~0.5 m) images acquired by the DigitalGlobe, Inc. Worldview-1 and 2 satellites through the NGA EnhancedView license.
-                The DEMs are built using photogrammetric techniques in which common features are identified in each image and are used to model the relative three dimensional position of the terrain. These DEMs are constructed without ground control and rely on the satellite positioning model (also called the Rational Function Mode, or RFM) to locate the surface in space.
-                The accuracy of the DEM is primarily limited by the accuracy of the rational polynomial coefficients, or RPC’s, used in the RFM model, and is expected to be several meters in the vertical dimension. Additional errors in the DEM arise from failure in the matching software due to clouds, shadows and lack of contrast.
+                The DEMs are built using photogrammetric techniques in which common features are identified in each image and are used to model the relative three dimensional position of the terrain.
+                These DEMs are constructed without ground control and rely on the satellite positioning model (also called the Rational Function Mode, or RFM) to locate the surface in space.
+                The accuracy of the DEM is primarily limited by the accuracy of the rational polynomial coefficients, or RPC’s, used in the RFM model, and is expected to be several meters in the vertical dimension.
+                Additional errors in the DEM arise from failure in the matching software due to clouds, shadows and lack of contrast.
                 <a href="http://www.pgc.umn.edu/elevation/stereo" target="_blank">http://www.pgc.umn.edu/elevation/stereo</a>
               </div>
               <div class="section-source">

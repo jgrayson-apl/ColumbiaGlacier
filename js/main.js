@@ -89,18 +89,6 @@ define([
     columbiaGlacierImageServiceUrl: "http://maps.esri.com/apl15/rest/services/ArcticDEM/ColumbiaGlacier/ImageServer",
 
     /**
-     * EQUIVALENT ICON URLS
-     */
-    equivalentIcons: {
-      "glacier": "./images/green/AGOL_Analysis_Icons_blue_defaultLandscape_32.png",
-      "percapita": "./images/green/Facilities_65.png",
-      "oiltanker": "./images/green/Ferry.png",
-      "olympicpools": "./images/green/LasEditWater32.png",
-      "bathtub": "./images/green/bathtub.png",
-      "barrelsoil": "./images/green/Roadway_Reporter_Data_products.png"
-    },
-
-    /**
      * CONSTRUCTOR
      *
      */
@@ -863,8 +851,7 @@ define([
 
       var glacierTable = put(parentNode, "table.glacier-item", {border: 0, width: "100%"});
       put(glacierTable, "tr td.equivalent-title.title-color", {colSpan: "2", align: "left", innerHTML: "Glacier"});
-      var iconNode = put(glacierTable, "tr td.equivalent-icon", {rowSpan: "5", align: "center"});
-      put(iconNode, "img", {src: this.equivalentIcons["glacier"]});
+      put(glacierTable, "tr td.equivalent-icon.cg-glacier", {rowSpan: "5", align: "center"});
       put(glacierTable, "tr td.equivalent-count.title-color", {align: "right", innerHTML: this._formatNumber(details.area)});
       put(glacierTable, "tr td.equivalent-details", {align: "right", innerHTML: details.areaunits});
       put(glacierTable, "tr td.equivalent-count.title-color", {align: "right", innerHTML: this._formatNumber(details.volume)});
@@ -885,8 +872,7 @@ define([
       var equivalentTable = put(parentNode, "table.equivalent-item", {border: 0, width: "100%"});
       put(equivalentTable, "tr td.equivalent-title.title-color", {colSpan: "2", align: "left", innerHTML: details.name});
       var middleRow = put(equivalentTable, "tr");
-      var iconNode = put(middleRow, "td.equivalent-icon", {rowSpan: "2", align: "center", valign: "top"});
-      put(iconNode, "img", {src: this.equivalentIcons[details.type]});
+      put(middleRow, lang.replace("td.equivalent-icon.cg-{type}", details), {rowSpan: "2", align: "center", valign: "top"});
       put(middleRow, "td.equivalent-count.title-color", {align: "right", innerHTML: this._formatNumber(details.count)});
       put(equivalentTable, "tr td.equivalent-details", {colSpan: "2", align: "right", innerHTML: details.details});
 

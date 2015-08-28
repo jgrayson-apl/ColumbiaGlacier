@@ -3,7 +3,7 @@ html, body {
   margin      : 0;
   height      : 100%;
   width       : 100%;
-  font-family : Helvetica, Tahoma, sans-serif;
+  font-family : "Helvatica Nue", "Helvatica", sans-serif;
 }
 
 :focus {
@@ -141,12 +141,24 @@ html, body {
   width : 390px;
 }
 
+#equivalent-node {
+  margin-top : 20px;
+}
+
 #about-node {
-  float           : right;
-  margin-right    : 10px;
-  padding         : 5px;
-  cursor          : pointer;
-  text-decoration : underline;
+  float            : right;
+  margin-top       : 5px;
+  margin-right     : 5px;
+  padding          : 4px;
+  cursor           : pointer;
+  font-size        : smaller;
+  background-color : #777;
+  border           : solid 1px #888;
+  border-radius    : 2px;
+}
+
+#about-node:hover {
+  border-color : #444;
 }
 
 .claro .dijitDialog {
@@ -270,21 +282,24 @@ html, body {
 }
 
 .equivalent-title {
-  font-size   : larger;
-  font-weight : bolder;
+  font-size     : larger;
+  font-weight   : bolder;
+  border-bottom : solid 1px #777;
 }
 
 .equivalent-icon {
   width          : 80px;
   height         : 80px;
   vertical-align : top;
+  font-size      : 50pt;
+  color          : #94DFBD;
 }
 
 /* ICONS USE GREENS SIMILAR TO #94DFBD */
-.equivalent-icon img {
+/*.equivalent-icon img {
   width  : 60px;
   height : 60px;
-}
+}*/
 
 .equivalent-count {
   font-size : 32pt;
