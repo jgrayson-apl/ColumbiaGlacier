@@ -124,6 +124,7 @@ html, body {
 
 #about-dialog-content {
   width : 900px;
+  font-size : smaller;
 }
 
 .section {

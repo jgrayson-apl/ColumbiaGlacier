@@ -616,7 +616,7 @@ define([
         majorTick: axisStroke,
         minorTick: axisStroke,
         fontColor: this.colors.primaryColor,
-        font: "normal normal 9pt Tahoma"
+        font: "normal normal normal 9pt Open Sans"
       });
       this.profileChart.addAxis("y", {
         title: "Elevation (meters)",
@@ -628,7 +628,7 @@ define([
         minorTicks: false,
         majorTick: axisStroke,
         fontColor: this.colors.primaryColor,
-        font: "normal normal 9pt Tahoma"
+        font: "normal normal normal 9pt Open Sans"
       });
 
       this.profileChart.addPlot("grid", {
