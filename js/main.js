@@ -219,7 +219,7 @@ define([
       // ADD BASEMAP //
       //var basemapLayer = new ArcGISTiledMapServiceLayer(this.basemapLayerUrl);
       var basemapLayer = new ArcGISImageServiceLayer(this.basemapLayerUrl);
-      this.map.addLayers([basemapLayer]);
+      this.map.addLayer(basemapLayer);
 
     },
 
@@ -747,7 +747,7 @@ define([
           x: (this.profileChart.dim.width * 0.5),
           y: (this.profileChart.dim.height * 0.5),
           align: "middle",
-          text: "Columbia Glacier Elevations Profile"
+          text: "Columbia Glacier Elevation Profile"
         }).setFont({family: "Helvetica", style: "normal", size: "21pt"}).setFill("#999");
       }
     },

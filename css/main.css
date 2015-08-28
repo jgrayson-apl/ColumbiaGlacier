@@ -51,7 +51,7 @@ html, body {
 
 #title-pane {
   top           : 20px;
-  left          : 60px;
+  left          : 20px;
   padding       : 15px;
   border-radius : 3px;
   border        : solid 1px #333;
@@ -75,14 +75,14 @@ html, body {
   position : absolute;
 }
 
-/*.esriSimpleSliderTL {
+.esriSimpleSliderTL {
   top  : 20px;
-  left : 20px;
-}*/
+  left : 275px;
+}
 
 #layers-pane {
   top  : 90px;
-  left : 60px;
+  left : 20px;
 }
 
 #tools-pane {
@@ -149,6 +149,30 @@ html, body {
   text-decoration : underline;
 }
 
+.claro .dijitDialog {
+  border        : none !important;
+  border-radius : 3px;
+}
+
+#about-dialog .dijitDialogTitleBar {
+  background : #666;
+  border     : none;
+}
+
+#about-dialog .dijitDialogTitle {
+  font-size : larger;
+  color     : #fff;
+}
+
+#about-dialog .dijitButtonNode {
+  border     : none !important;
+  background : #666;
+}
+
+#about-dialog .dijitButtonText {
+  color : #eee;
+}
+
 #about-dialog-content {
   width : 900px;
 }
@@ -176,14 +200,20 @@ html, body {
   margin       : 5px;
 }
 
-.section-source,
-.section-source a {
-  color      : #666;
+.section-source {
+  color      : #999;
   font-style : italic;
 }
 
-.section-source a:hover {
-  color : #222;
+.section a {
+  color           : #999;
+  font-style      : italic;
+  text-decoration : none;
+}
+
+.section a:hover {
+  color            : darkblue;
+  background-color : #fff9ea;
 }
 
 #main-bottom-pane {
