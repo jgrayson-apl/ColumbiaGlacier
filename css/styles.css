@@ -27,7 +27,7 @@
 
 [class^="cg-"]:before,
 [class*=" cg-"]:before {
-  font-family : "columbiaglacier", sans-serif !important;
+  font-family             : "columbiaglacier", sans-serif !important;
   font-style              : normal !important;
   font-weight             : normal !important;
   font-variant            : normal !important;
@@ -37,22 +37,6 @@
   -webkit-font-smoothing  : antialiased;
   -moz-osx-font-smoothing : grayscale;
 }
-/*
-.cg-olympic-pools:before {
-  content : "a";
-}
-
-.cg-pop-water:before {
-  content : "b";
-}
-
-.cg-glacier:before {
-  content : "c";
-}
-
-.cg-bath-tub:before {
-  content : "d";
-}*/
 
 .cg-olympicpools:before {
   content : "a";

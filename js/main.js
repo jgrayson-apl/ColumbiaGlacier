@@ -20,8 +20,6 @@ define([
   "dojo/_base/lang",
   "dojo/_base/array",
   "dojo/_base/fx",
-  "dojo/fx",
-  "dojo/fx/Toggler",
   "dojo/_base/Color",
   "dojo/colors",
   "dojo/json",
@@ -38,15 +36,19 @@ define([
   "put-selector/put",
   "dijit/registry",
   "dijit/form/ToggleButton",
+  "dijit/Tooltip",
+  "dijit/place",
   "dojox/charting/Chart",
   "dojox/charting/axis2d/Default",
   "dojox/charting/plot2d/Grid",
   "dojox/charting/themes/Bahamation",
   "dojox/charting/plot2d/Lines",
   "dojox/charting/action2d/MouseIndicator",
+  "dojox/charting/action2d/TouchIndicator",
   "dojox/charting/widget/Legend",
   "dojox/charting/StoreSeries",
   "dojo/store/Memory",
+  "esri/sniff",
   "esri/map",
   "esri/geometry/Point",
   "esri/geometry/Extent",
@@ -62,9 +64,10 @@ define([
   "esri/toolbars/draw",
   "esri/tasks/Geoprocessor",
   "esri/tasks/FeatureSet"
-], function (declare, lang, array, fx, coreFx, Toggler, Color, colors, json, number, dom, domClass, domStyle, domGeom, query, on, aspect, Deferred, all, put,
-             registry, ToggleButton, Chart, Default, Grid, ChartTheme, Lines, MouseIndicator, ChartLegend, StoreSeries, Memory,
-             Map, Point, Extent, Graphic, GraphicsLayer, ArcGISTiledMapServiceLayer,
+], function (declare, lang, array, fx, Color, colors, json, number, dom, domClass, domStyle, domGeom,
+             query, on, aspect, Deferred, all, put, registry, ToggleButton, Tooltip, place,
+             Chart, Default, Grid, ChartTheme, Lines, MouseIndicator, TouchIndicator, ChartLegend, StoreSeries, Memory,
+             esriSniff, Map, Point, Extent, Graphic, GraphicsLayer, ArcGISTiledMapServiceLayer,
              ArcGISImageServiceLayer, ImageServiceParameters, RasterFunction, MosaicRule,
              LayerSwipe, Scalebar, DrawToolbar, Geoprocessor, FeatureSet) {
 
@@ -112,7 +115,11 @@ define([
       //this.toggleProfilePane(false);
       //this.toggleStatsPane(false);
 
+      // GET COLORS //
+      this.getColors();
+
       this.map = new Map("map-pane", {
+        sliderPosition: "bottom-left",
         //basemap: "satellite",
         extent: new Extent({"xmin": -16402665.572775858, "ymin": 8649793.753135916, "xmax": -16346560.794014612, "ymax": 8673527.450418431, "spatialReference": {"wkid": 102100, "latestWkid": 3857}}),
         //center: [-147.0939363281225, 61.15569307841876],
@@ -227,13 +234,13 @@ define([
      *
      */
     getColors: function () {
-      return {
-        titleColor: domStyle.get("app-title-node", "color"),
-        //accentColor : domStyle.get("app-title-node", "color"),
-        primaryColor: domStyle.get("main-container", "color"),
-        secondaryColor: domStyle.get("layers-pane", "color"),
-        primaryFill: domStyle.get("main-container", "backgroundColor"),
-        secondaryFill: domStyle.get("layers-pane", "backgroundColor")
+      this.colors = {
+        titleColor: domStyle.get("colors-title", "color"),
+        accentColor: domStyle.get("colors-accent", "color"),
+        primaryColor: domStyle.get("colors-primary", "color"),
+        secondaryColor: domStyle.get("colors-secondary", "color"),
+        primaryFill: domStyle.get("colors-primary", "backgroundColor"),
+        secondaryFill: domStyle.get("colors-secondary", "backgroundColor")
       };
     },
 
@@ -482,13 +489,13 @@ define([
       this.profileTask.setOutSpatialReference(this.map.spatialReference);
 
       var profileSymbol = lang.clone(this.drawToolbar.lineSymbol);
-      profileSymbol.setColor(new Color(Color.named.gold));
+      profileSymbol.setColor(new Color(this.colors.accentColor));
       profileSymbol.setWidth(5.0);
       this.drawToolbar.setLineSymbol(profileSymbol);
 
       var locationSymbol = lang.clone(this.drawToolbar.markerSymbol);
-      var titleColor = domStyle.get("app-title-node", "color");
-      locationSymbol.setColor(new Color(titleColor));
+      locationSymbol.setColor(new Color(this.colors.secondaryFill));
+      locationSymbol.outline.setColor(new Color(this.colors.titleColor));
       locationSymbol.setSize(12.0);
       this.profileIndexLocationGraphic = new Graphic(null, locationSymbol);
       this.map.graphics.add(this.profileIndexLocationGraphic);
@@ -585,44 +592,42 @@ define([
      */
     initProfileChart: function () {
 
-      var primaryFill = domStyle.get("main-container", "backgroundColor");
-      var primaryColor = domStyle.get("main-container", "color");
-      var secondaryFill = domStyle.get("map-pane", "backgroundColor");
-      var secondaryColor = domStyle.get("map-pane", "color");
-      var titleColor = domStyle.get("app-title-node", "color");
-
       var chartNode = dom.byId("profile-chart-node");
       this.profileChart = new Chart(chartNode);
       this.profileChart.setTheme(ChartTheme);
 
-      this.profileChart.fill = primaryFill;
-      this.profileChart.theme.plotarea.fill = primaryFill;
-      this.profileChart.theme.axis.stroke.color = primaryColor;
+      var axisStroke = {color: this.colors.secondaryColor, width: 1};
+      var indicatorStroke =  {color: this.colors.secondaryColor, width: 1};
+
+      this.profileChart.fill = this.colors.primaryFill;
+      this.profileChart.theme.plotarea.fill = this.colors.primaryFill;
+      this.profileChart.theme.axis.stroke = axisStroke;
+      this.profileChart.theme.indicator.lineStroke = indicatorStroke;
 
       this.profileChart.addAxis("x", {
         title: "Distance (meters)",
-        titleFontColor: primaryColor,
+        titleFontColor: this.colors.primaryColor,
         titleOrientation: "away",
         natural: true,
         includeZero: true,
         fixUpper: "none",
         majorTicks: true,
         minorTicks: true,
-        majorTick: {color: primaryColor},
-        minorTick: {color: primaryColor},
-        fontColor: primaryColor,
+        majorTick: axisStroke,
+        minorTick: axisStroke,
+        fontColor: this.colors.primaryColor,
         font: "normal normal 9pt Tahoma"
       });
       this.profileChart.addAxis("y", {
         title: "Elevation (meters)",
-        titleFontColor: primaryColor,
+        titleFontColor: this.colors.primaryColor,
         vertical: true,
         fixUpper: "minor",
         includeZero: true,
         majorTicks: true,
         minorTicks: false,
-        majorTick: {color: primaryColor},
-        fontColor: primaryColor,
+        majorTick: axisStroke,
+        fontColor: this.colors.primaryColor,
         font: "normal normal 9pt Tahoma"
       });
 
@@ -633,7 +638,7 @@ define([
         vMajorLines: false,
         vMinorLines: false,
         majorHLine: {
-          color: primaryColor,
+          color: this.colors.primaryColor,
           width: 0.5
         }
       });
@@ -650,15 +655,20 @@ define([
         stroke: {color: Color.named.salmon, width: 2.5}
       });
 
-      // MOUSE INDICATOR //
-      var mouseIndicator = new MouseIndicator(this.profileChart, "default", {
-        series: "2013",
+      // INDICATOR PROPERTIES //
+      // https://github.com/dojo/dojox/blob/master/charting/action2d/MouseIndicator.js
+      // https://dojotoolkit.org/reference-guide/1.10/dojox/gfx-visual-properties.html
+      var indicatorProperties = {
+        series: "2009",
         mouseOver: true,
-        fill: secondaryFill,
-        fontColor: secondaryColor,
-        font: "normal normal normal 13pt Tahoma",
-        markerFill: titleColor,
+        font: "normal normal normal 13pt Open Sans",
+        fontColor: this.colors.titleColor,
+        fill: this.colors.secondaryFill,
+        stroke: {color: this.colors.titleColor},
+        markerFill: this.colors.secondaryFill,
+        markerStroke: {color: this.colors.titleColor},
         markerSymbol: "m-6,0 c0,-8 12,-8 12,0 m-12,0 c0,8 12,8 12,0",
+        labels: true,
         labelFunc: lang.hitch(this, function (dataPoint) {
           if(this.profileInfos) {
             var item2009 = this.profileInfos["2009"].get(dataPoint.x);
@@ -672,7 +682,54 @@ define([
             return lang.replace("  2009: {elev2009}m  --  2013: {elev2013}m  --  Change: {diff}m  ", details);
           }
         })
-      });
+      };
+
+      // MOUSE/TOUCH INDICATOR //
+      if(esriSniff("has-touch")) {
+        new TouchIndicator(this.profileChart, "default", indicatorProperties);
+      } else {
+        new MouseIndicator(this.profileChart, "default", indicatorProperties);
+      }
+
+      /**
+       * http://stackoverflow.com/questions/23399578/can-dojo-mouseindicator-be-html-and-not-just-plain-text
+       */
+      /*var shown = false;
+       var tooltip = new Tooltip();
+       on(mouseIndicator, "Change", lang.hitch(this, function (evt) {
+       if(evt.label) {
+       if(this.profileInfos) {
+       var item2009 = this.profileInfos["2009"].get(evt.start.x);
+       var item2013 = this.profileInfos["2013"].get(evt.start.x);
+       this.updateProfileLocation(item2009.coord);
+       var details = {
+       elev2009: item2009.elevation.toFixed(1),
+       elev2013: item2013.elevation.toFixed(1),
+       diff: (item2013.elevation - item2009.elevation).toFixed(2)
+       };
+       var label = lang.replace("  2009: {elev2009}m  --  2013: {elev2013}m  --  Change: <b>{diff}m</b>  ", details);
+
+       var yAxis = this.profileChart.getAxis("y");
+       var around = this.profileChart.getPlot("default").toPage({x: evt.start.x, y: yAxis.scaler.bounds.to});
+       around.w = 1;
+       around.h = 1;
+       tooltip.label = label;
+       tooltip.position = ["above-centered"];
+       if(!shown) {
+       shown = true;
+       tooltip.open(around);
+       } else {
+       Tooltip._masterTT.containerNode.innerHTML = tooltip.label;
+       place.around(Tooltip._masterTT.domNode, around, ["above-centered"]);
+       }
+       }
+       } else {
+       // hide
+       tooltip.close();
+       shown = false;
+       }
+       }));*/
+
 
       this.profileChart.render();
       this.profileChart.empty = true;
@@ -736,7 +793,7 @@ define([
           y: (this.profileChart.dim.height * 0.5),
           align: "middle",
           text: "Columbia Glacier Elevation Profile"
-        }).setFont({family: "Helvetica", style: "normal", size: "21pt"}).setFill("#999");
+        }).setFont({family: "Open Sans", style: "normal", size: "19pt"}).setFill(this.colors.secondaryColor);
       }
     },
 
@@ -749,8 +806,11 @@ define([
       this.statsTask.setOutSpatialReference(this.map.spatialReference);
 
       var statsSymbol = lang.clone(this.drawToolbar.fillSymbol);
-      statsSymbol.setColor(new Color(Color.named.yellow.concat(0.3)));
-      statsSymbol.outline.setColor(new Color(Color.named.gold));
+      var statsColor = new Color(this.colors.accentColor);
+      statsColor.a = 0.3;
+      statsSymbol.setColor(statsColor);
+
+      statsSymbol.outline.setColor(new Color(this.colors.accentColor));
       statsSymbol.outline.setWidth(5.0);
       this.drawToolbar.setFillSymbol(statsSymbol);
 
@@ -850,8 +910,8 @@ define([
     _displayGlacierDetails: function (parentNode, details) {
 
       var glacierTable = put(parentNode, "table.glacier-item", {border: 0, width: "100%"});
-      put(glacierTable, "tr td.equivalent-title.title-color", {colSpan: "2", align: "left", innerHTML: "Glacier"});
-      put(glacierTable, "tr td.equivalent-icon.cg-glacier", {rowSpan: "5", align: "center"});
+      put(glacierTable, "tr td.equivalent-title.title-color.accent-border-color", {colSpan: "2", align: "left", innerHTML: "Glacier"});
+      put(glacierTable, "tr td.equivalent-icon.cg-glacier.accent-color", {rowSpan: "5", align: "center"});
       put(glacierTable, "tr td.equivalent-count.title-color", {align: "right", innerHTML: this._formatNumber(details.area)});
       put(glacierTable, "tr td.equivalent-details", {align: "right", innerHTML: details.areaunits});
       put(glacierTable, "tr td.equivalent-count.title-color", {align: "right", innerHTML: this._formatNumber(details.volume)});
@@ -870,9 +930,9 @@ define([
     _displayEquivalentDetails: function (parentNode, details) {
 
       var equivalentTable = put(parentNode, "table.equivalent-item", {border: 0, width: "100%"});
-      put(equivalentTable, "tr td.equivalent-title.title-color", {colSpan: "2", align: "left", innerHTML: details.name});
+      put(equivalentTable, "tr td.equivalent-title.title-color.accent-border-color", {colSpan: "2", align: "left", innerHTML: details.name});
       var middleRow = put(equivalentTable, "tr");
-      put(middleRow, lang.replace("td.equivalent-icon.cg-{type}", details), {rowSpan: "2", align: "center", valign: "top"});
+      put(middleRow, lang.replace("td.equivalent-icon.cg-{type}.accent-color", details), {rowSpan: "2", align: "center", valign: "top"});
       put(middleRow, "td.equivalent-count.title-color", {align: "right", innerHTML: this._formatNumber(details.count)});
       put(equivalentTable, "tr td.equivalent-details", {colSpan: "2", align: "right", innerHTML: details.details});
 

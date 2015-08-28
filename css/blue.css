@@ -1,0 +1,78 @@
+.title-color {
+  color : #fff !important;
+}
+
+.accent-color {
+  color : #f89927 !important;
+}
+
+.accent-border-color {
+  border-color : #f89927 !important;
+}
+
+.primary-color {
+  color : #eee !important;
+}
+
+.secondary-color {
+  color : #007ac2 !important;
+}
+
+.primary-background {
+  background : #0d314d !important;
+}
+
+.secondary-background {
+  background : #007ac2 !important;
+}
+
+.esriSimpleSlider {
+  color            : #fff;
+  background-color : #0d314d;
+  border           : solid 1px #fff;
+}
+
+.esriSimpleSliderVertical .esriSimpleSliderIncrementButton {
+  border-bottom : 1px solid #fff;
+}
+
+.esriSimpleSliderIncrementButton:hover,
+.esriSimpleSliderDecrementButton:hover {
+  background : #007ac2;
+}
+
+.dijitButtonNode {
+  border        : none !important;
+  background    : #0d314d !important;
+  border-radius : 3px !important;
+  margin        : 2px !important;
+  padding       : 2px !important;
+}
+
+.dijitButtonText {
+  color : #eee;
+}
+
+.dijitButtonHover .dijitButtonText,
+.dijitToggleButtonHover .dijitButtonText {
+  color : #fff !important;
+}
+
+.dijitButtonHover .dijitButtonNode,
+.dijitToggleButtonHover .dijitButtonNode {
+  background-color : #007ac2 !important;
+}
+
+.dijitToggleButtonChecked .dijitButtonNode {
+  background-color : #007ac2 !important;
+}
+
+#about-dialog .dijitDialogTitleBar {
+  background : #0d314d;
+  border     : none;
+}
+
+#about-dialog .dijitDialogTitle {
+  font-size : larger;
+  color     : #fff;
+}

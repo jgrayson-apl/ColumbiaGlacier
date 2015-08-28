@@ -3,40 +3,12 @@ html, body {
   margin      : 0;
   height      : 100%;
   width       : 100%;
-  font-family : "Helvatica Nue", "Helvatica", sans-serif;
+  font-family : "Open Sans", "Helvatica Nue", "Helvatica", sans-serif;
 }
 
 :focus {
   outline : none !important;
 }
-
-/* ============================================= */
-
-.title-color {
-  color : #fff !important;
-}
-
-.accent-color {
-  color : #999 !important;
-}
-
-.primary-color {
-  color : #dadada !important;
-}
-
-.secondary-color {
-  color : #333 !important;
-}
-
-.primary-background {
-  background : #666 !important;
-}
-
-.secondary-background {
-  background : #dadada !important;
-}
-
-/* ============================================= */
 
 #main-container {
   height : 100%;
@@ -50,16 +22,19 @@ html, body {
 }
 
 #title-pane {
-  top           : 20px;
-  left          : 20px;
-  padding       : 15px;
-  border-radius : 3px;
-  border        : solid 1px #333;
-
+  top                            : 0;
+  left                           : 20px;
+  padding                        : 15px;
+  -moz-border-radius-bottomleft  : 3px;
+  -moz-border-radius-bottomright : 3px;
 }
 
 #app-title-node {
   font-size : 21pt;
+}
+
+#map-pane {
+  color : #222;
 }
 
 #map-pane .esriScalebarLabel {
@@ -75,13 +50,18 @@ html, body {
   position : absolute;
 }
 
-.esriSimpleSliderTL {
-  top  : 20px;
-  left : 275px;
+.esriSimpleSliderBL {
+  bottom : 20px !important;
+  left   : 20px;
+}
+
+.scalebar_bottom-left {
+  bottom : 48px;
+  left   : 60px !important;
 }
 
 #layers-pane {
-  top  : 90px;
+  top  : 80px;
   left : 20px;
 }
 
@@ -96,25 +76,10 @@ html, body {
 }
 
 .dijitToolbar {
-  padding        : 5px !important;
   vertical-align : middle !important;
-  border-radius  : 3px;
-}
-
-.dijitToolbar .dijitButtonNode {
-  border-color  : #999 !important;
-  border-radius : 3px !important;
-}
-
-.dijitToolbar .dijitButtonHover .dijitButtonNode,
-.dijitToolbar .dijitToggleButtonHover .dijitButtonNode {
-  background-color : #999 !important;
-  border-color     : #666 !important;
-}
-
-.dijitToolbar .dijitButtonHover .dijitButtonText,
-.dijitToolbar .dijitToggleButtonHover .dijitButtonText {
-  color : #fff !important;
+  border-radius  : 3px !important;
+  border         : none !important;
+  padding        : 5px !important;
 }
 
 .movable-label {
@@ -142,47 +107,19 @@ html, body {
 }
 
 #equivalent-node {
-  margin-top : 20px;
+  margin-top : 30px;
 }
 
-#about-node {
-  float            : right;
-  margin-top       : 5px;
-  margin-right     : 5px;
-  padding          : 4px;
-  cursor           : pointer;
-  font-size        : smaller;
-  background-color : #777;
-  border           : solid 1px #888;
-  border-radius    : 2px;
-}
-
-#about-node:hover {
-  border-color : #444;
+#about-parent-node {
+  position  : absolute;
+  top       : 5px;
+  right     : 5px;
+  font-size : smaller;
 }
 
 .claro .dijitDialog {
   border        : none !important;
   border-radius : 3px;
-}
-
-#about-dialog .dijitDialogTitleBar {
-  background : #666;
-  border     : none;
-}
-
-#about-dialog .dijitDialogTitle {
-  font-size : larger;
-  color     : #fff;
-}
-
-#about-dialog .dijitButtonNode {
-  border     : none !important;
-  background : #666;
-}
-
-#about-dialog .dijitButtonText {
-  color : #eee;
 }
 
 #about-dialog-content {
@@ -284,30 +221,25 @@ html, body {
 .equivalent-title {
   font-size     : larger;
   font-weight   : bolder;
-  border-bottom : solid 1px #777;
+  border-bottom : 1px solid;
 }
 
 .equivalent-icon {
   width          : 80px;
   height         : 80px;
   vertical-align : top;
+  padding-top    : 10px;
   font-size      : 50pt;
-  color          : #94DFBD;
 }
-
-/* ICONS USE GREENS SIMILAR TO #94DFBD */
-/*.equivalent-icon img {
-  width  : 60px;
-  height : 60px;
-}*/
 
 .equivalent-count {
   font-size : 32pt;
 }
 
 .equivalent-details {
-  font-size  : smaller;
-  font-style : italic;
+  font-size   : smaller;
+  font-style  : italic;
+  line-height : 1.5em;
 }
 
 .equivalent-details.volume {

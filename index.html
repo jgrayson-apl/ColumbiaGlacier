@@ -8,8 +8,10 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,300italic" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//js.arcgis.com/3.14/dijit/themes/claro/claro.css">
     <link rel="stylesheet" href="//js.arcgis.com/3.14/esri/css/esri.css">
+    <link rel="stylesheet" href="css/blue.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/main.css">
     <script type="text/javascript">
@@ -50,16 +52,16 @@
   </head>
   <body class="claro">
     <div id="main-container" class="primary-background primary-color" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false,design:'sidebar'">
-      <div id="map-pane" dir="ltr" class="secondary-background secondary-color" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
+      <div id="map-pane" dir="ltr" class="primary-background" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
         <div id="title-pane" class="map-overlay primary-background">
           <div id="app-title-node" class="title-color">Columbia Glacier</div>
         </div>
-        <div id="layers-pane" class="map-overlay secondary-background secondary-color" data-dojo-type="dijit/Toolbar">
+        <div id="layers-pane" class="map-overlay primary-background" data-dojo-type="dijit/Toolbar">
           <span id="layer-buttons-node"></span>
           <span data-dojo-type="dijit/ToolbarSeparator"></span>
           <div id="toggle-swipe-btn" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="checked:false,label:'Swipe',title:'Toggle the ability to swipe the layers',iconClass:'toggle-swipe-icon'"></div>
         </div>
-        <div id="tools-pane" class="map-overlay secondary-background secondary-color" data-dojo-type="dijit/Toolbar">
+        <div id="tools-pane" class="map-overlay primary-background" data-dojo-type="dijit/Toolbar">
           <div id="get-profile-btn" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="label:'Get Profiles',title:'Draw a line on the map to generate elevation profiles',iconClass:'profile-tool-icon'"></div>
           <div id="get-stats-btn" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="label:'Get Stats',title:'Draw a circle on the map to get elevation change statistics',iconClass:'graph-tool-icon'"></div>
           <span data-dojo-type="dijit/ToolbarSeparator"></span>
@@ -67,13 +69,21 @@
         </div>
       </div>
       <div id="main-right-pane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right'">
-        <div id="about-node" class="title-color" title="Learn more about the data and calculations...">about</div>
+        <div id="about-parent-node">
+          <div id="about-node" data-dojo-type="dijit/form/Button" data-dojo-props="label:'about'" title="Learn more about the data and calculations..."></div>
+        </div>
         <div id="equivalent-node"></div>
       </div>
       <div id="main-bottom-pane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom'">
         <div id="profile-chart-node"></div>
         <div id="profile-chart-legend-node"></div>
       </div>
+    </div>
+    <div style="display:none;">
+      <span id="colors-title" class="title-color"></span>
+      <span id="colors-primary" class="primary-background primary-color"></span>
+      <span id="colors-secondary" class="secondary-background secondary-color"></span>
+      <span id="colors-accent" class="accent-color accent-border-color"></span>
     </div>
     <div id="about-dialog" data-dojo-type="dijit/ConfirmDialog" data-dojo-props="title:'Columbia Glacier'">
       <div id="about-dialog-content" class="dijitDialogPaneContentArea">
