@@ -22,11 +22,13 @@ html, body {
 }
 
 #title-pane {
-  top                            : 0;
-  left                           : 20px;
-  padding                        : 15px;
-  -moz-border-radius-bottomleft  : 3px;
-  -moz-border-radius-bottomright : 3px;
+  top                   : 0;
+  left                  : 20px;
+  padding               : 15px;
+  /*http://www.cssmatic.com/border-radius*/
+  border-radius         : 0 0 3px 3px;
+  -moz-border-radius    : 0 0 3px 3px;
+  -webkit-border-radius : 0 0 3px 3px;
 }
 
 #app-title-node {
@@ -103,7 +105,7 @@ html, body {
 }
 
 #main-right-pane {
-  width : 390px;
+  width : 400px;
 }
 
 #equivalent-node {
@@ -123,7 +125,7 @@ html, body {
 }
 
 #about-dialog-content {
-  width : 900px;
+  width     : 900px;
   font-size : smaller;
 }
 
@@ -183,30 +185,6 @@ html, body {
   bottom    : 10px;
   left      : 80px;
   font-size : medium;
-}
-
-.toggle-swipe-icon {
-  width            : 16px;
-  height           : 16px;
-  background-image : url(../images/EffectsSwipe16.png);
-}
-
-.profile-tool-icon {
-  width            : 16px;
-  height           : 16px;
-  background-image : url(../images/ProfileGraphCreate16.png);
-}
-
-.graph-tool-icon {
-  width            : 16px;
-  height           : 16px;
-  background-image : url(../images/Green_KeyFacts_16.png);
-}
-
-.clear-icon {
-  width            : 16px;
-  height           : 16px;
-  background-image : url(../images/GenericDelete16.png);
 }
 
 .glacier-item {
@@ -282,7 +260,7 @@ html, body {
   font-size        : 2em;
   color            : #fff;
   text-shadow      : 1px 1px 0 #222;
-  background-color : rgba(170, 170, 170, 0.5);
+  background-color : rgba(0, 122, 194, 0.5);
 }
 
 .error-node {

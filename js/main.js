@@ -74,13 +74,6 @@ define([
   var MainApp = declare(null, {
 
     /**
-     * ANALYSIS SERVICES URLS
-     */
-    profileTaskUrl: "http://maps.esri.com/apl15/rest/services/ArcticDEM/Profile/GPServer/Profile",
-    statsTaskUrl: "http://maps.esri.com/apl15/rest/services/ArcticDEM/VolumeDelta/GPServer/VolumeDelta",
-
-
-    /**
      * BASEMAP LAYER URL
      */
     //basemapLayerUrl: "http://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer",
@@ -90,6 +83,12 @@ define([
      * COLUMBIA GLACIER IMAGE SERVICE URL
      */
     columbiaGlacierImageServiceUrl: "http://maps.esri.com/apl15/rest/services/ArcticDEM/ColumbiaGlacier/ImageServer",
+
+    /**
+     * ANALYSIS SERVICES URLS
+     */
+    profileTaskUrl: "http://maps.esri.com/apl15/rest/services/ArcticDEM/Profile/GPServer/Profile",
+    statsTaskUrl: "http://maps.esri.com/apl15/rest/services/ArcticDEM/VolumeDelta/GPServer/VolumeDelta",
 
     /**
      * CONSTRUCTOR
@@ -597,7 +596,7 @@ define([
       this.profileChart.setTheme(ChartTheme);
 
       var axisStroke = {color: this.colors.secondaryColor, width: 1};
-      var indicatorStroke =  {color: this.colors.secondaryColor, width: 1};
+      var indicatorStroke = {color: this.colors.secondaryColor, width: 1};
 
       this.profileChart.fill = this.colors.primaryFill;
       this.profileChart.theme.plotarea.fill = this.colors.primaryFill;
@@ -685,11 +684,7 @@ define([
       };
 
       // MOUSE/TOUCH INDICATOR //
-      if(esriSniff("has-touch")) {
-        new TouchIndicator(this.profileChart, "default", indicatorProperties);
-      } else {
-        new MouseIndicator(this.profileChart, "default", indicatorProperties);
-      }
+      var indicator = new (esriSniff("has-touch") ? TouchIndicator : MouseIndicator)(this.profileChart, "default", indicatorProperties);
 
       /**
        * http://stackoverflow.com/questions/23399578/can-dojo-mouseindicator-be-html-and-not-just-plain-text
